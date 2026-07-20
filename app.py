@@ -59,7 +59,7 @@ def load_tournament_status():
 backup = load_tournament_status()
 if backup and "matches" not in st.session_state:
     st.session_state.matches = backup.get("matches", [])
-    st.session_state.teams = backup.get("teams", {"Left_Team": {"name": "좌측명단", "players": []}, "Right_Team": {"name": "우측명단", "players": []}})
+    st.session_state.teams = backup.get("teams", {"Left_Team": {"name": "1팀 멤버", "players": []}, "Right_Team": {"name": "2팀 멤버", "players": []}})
     st.session_state.today_entry = backup.get("today_entry", [])
     st.session_state.assigned_maps = backup.get("assigned_maps", [])
     st.session_state.title_type = backup.get("title_type", "텍스트 입력")
@@ -67,7 +67,7 @@ if backup and "matches" not in st.session_state:
     st.session_state.active_maps = backup.get("active_maps", [])
 else:
     if "matches" not in st.session_state: st.session_state.matches = []
-    if "teams" not in st.session_state: st.session_state.teams = {"Left_Team": {"name": "좌측명단", "players": []}, "Right_Team": {"name": "우측명단", "players": []}}
+    if "teams" not in st.session_state: st.session_state.teams = {"Left_Team": {"name": "1팀 멤버", "players": []}, "Right_Team": {"name": "2팀 멤버", "players": []}}
     if "today_entry" not in st.session_state: st.session_state.today_entry = []
     if "assigned_maps" not in st.session_state: st.session_state.assigned_maps = []
     if "title_type" not in st.session_state: st.session_state.title_type = "텍스트 입력"
@@ -112,7 +112,7 @@ st.markdown("""
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     
-    /* 🛠️ 팀 멤버 묶음 박스 디자인 */
+    /* 팀 멤버 묶음 박스 디자인 */
     .broadcast-team-card {
         background-color: #14161d; 
         border: 2px solid #2d3139;
@@ -122,10 +122,11 @@ st.markdown("""
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
     .broadcast-player-container {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        flex-wrap: wrap !important;
         margin-top: 15px;
     }
     .broadcast-player-card {
@@ -144,46 +145,60 @@ st.markdown("""
         border-radius: 12px; padding: 25px; margin-top: 35px !important;
     }
     
-    /* 🛠️ 사용맵 나열 대형 와이드 박스 디자인 */
+    /* 사용맵 나열 대형 와이드 박스 디자인 */
     .use-map-container-box {
-        background-color: #14161d;
-        border: 2px solid #2d3139;
-        border-radius: 16px;
-        padding: 15px 20px;
-        margin-bottom: 35px;
+        background-color: #14161d; border: 2px solid #2d3139; border-radius: 16px; padding: 15px 20px; margin-bottom: 35px;
+    }
+    
+    /* 🛠️ [🚨 세로 줄바꿈 전면 방지 규칙] 맵 타임라인 가로 강제 연동 */
+    .map-timeline-row {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        flex-wrap: nowrap !important; /* 모바일/좁은 화면에서도 세로로 떨어지는 것 절대 차단 */
+        overflow-x: auto !important;
     }
     .map-timeline-box {
-        background-color: #1c1e26; border: 1px solid #2d3139;
-        border-radius: 12px; padding: 10px; text-align: center;
+        background-color: #1c1e26; border: 1px solid #2d3139; border-radius: 12px; padding: 10px; text-align: center;
+        width: 150px !important; flex-shrink: 0 !important;
     }
     .map-timeline-img img {
-        width: 100% !important; height: 110px !important;
+        width: 100% !important; height: 95px !important;
         object-fit: cover !important; border-radius: 6px !important;
     }
     
-    /* 🛠️ [🚨 와이어프레임 공공 디자인] 1:1 대결 구조 컴팩트 스킨 교정 */
+    /* 🛠️ [🚨 매치 보드 수평 구조 강제 봉인] */
+    .match-board-flex-row {
+        display: flex !important;
+        flex-direction: row !important; /* 무조건 가로 일직선 유지 */
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
     .match-board-card {
         background-color: #181a20; border: 1px solid #2d3139; border-radius: 16px; 
         padding: 25px; margin: 0 auto 30px auto !important;
-        max-width: 620px !important;
+        max-width: 650px !important;
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
     }
     
-    /* 정형 사각형 박스 고정 크기 수립 */
+    .match-side-player-block {
+        text-align: center !important;
+        width: 160px !important;
+        flex-shrink: 0 !important;
+    }
+    
     .match-player-img img { 
         width: 150px !important; height: 150px !important; 
         object-fit: cover !important; border-radius: 12px !important; 
-        margin: 0 auto;
         border: 2px solid #2d3139;
+        margin: 0 auto;
     }
     
-    /* 수직 중앙 정렬을 위한 라벨 박스 텍스트 */
     .match-mid-text-container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 150px; /* 사각형 사진과 높이를 완벽 일치시켜 수직 중앙 정렬 */
+        text-align: center !important;
+        flex-grow: 1 !important;
     }
 
     .admin-match-text-row {
@@ -284,7 +299,7 @@ else:
     tab_main = st.container()
 
 # =========================================================
-# 🏆 [1번 탭] 방송 송출 오버레이 (스케치 디자인 완벽 적용 🌟)
+# 🏆 [1번 탭] 방송 송출 오버레이 (수평 배열 완전 고정 🌟)
 # =========================================================
 with tab_main:
     st.markdown('<div class="main-title-container">', unsafe_allow_html=True)
@@ -343,63 +358,67 @@ with tab_main:
             st.caption("<p style='text-align:center; color:#64748b; margin-top:15px;'>배정된 선수가 없습니다.</p>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # 2. 중간: [사용맵 나열] 가로형 단독 묶음 배너
+    # 2. 중간: [사용맵 나열] 가로형 단독 묶음 배너 (HTML 플렉스로 세로 리배치 철저 방어)
     if st.session_state.matches:
         st.markdown("<div class='use-map-container-box'>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center; color: #94a3b8; font-weight: bold; margin-top:0px; margin-bottom:15px;'>🗺️ 사용맵 나열</h3>", unsafe_allow_html=True)
-        map_cols = st.columns(len(st.session_state.matches))
+        
+        # HTML 뼈대로 수평 고정 컨테이너 시작
+        timeline_html = "<div class='map-timeline-row'>"
         for idx, match in enumerate(st.session_state.matches):
             map_row = df_maps[df_maps['map_name'] == match["map"]] if not df_maps.empty else pd.DataFrame()
             map_img = map_row.iloc[0]['map_url'] if not map_row.empty and map_row.iloc[0]['map_url'] else "https://via.placeholder.com/150/14161d/ffffff?text=No+Image"
-            with map_cols[idx]:
-                st.markdown(f"<div class='map-timeline-box'>", unsafe_allow_html=True)
-                st.markdown(f"<p style='margin:0 0 5px 0; font-size:0.85rem; font-weight:bold; color:#00ffa3;'>SET {idx+1}</p>", unsafe_allow_html=True)
-                st.markdown(f"<div class='map-timeline-img'>", unsafe_allow_html=True)
-                st.image(map_img)
-                st.markdown(f"</div>", unsafe_allow_html=True)
-                st.markdown(f"<p style='margin:5px 0 0 0; font-size:0.85rem; font-weight:bold; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;'>{match['map']}</p>", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
+            
+            timeline_html += f"""
+            <div class='map-timeline-box'>
+                <p style='margin:0 0 5px 0; font-size:0.85rem; font-weight:bold; color:#00ffa3;'>SET {idx+1}</p>
+                <div class='map-timeline-img'><img src="{map_img}"></div>
+                <p style='margin:5px 0 0 0; font-size:0.85rem; font-weight:bold; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;'>{match['map']}</p>
+            </div>
+            """
+        timeline_html += "</div>"
+        st.markdown(timeline_html, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<br><h2 style='text-align: center; letter-spacing: 6px; font-weight: 900; color: #ffffff !important;'>MATCH BOARD</h2>", unsafe_allow_html=True)
     st.write("")
     
-    # 3. 하단: [사각형 프로필 사진] 아래에 [선수 이름]이 오고, 가운데 정보들이 수직 정렬되는 매치보드
+    # 3. 하단: [사진 아래 이름] 형태의 완전한 1:1 수평 매치보드 (스트림릿 레이아웃 버그 회피 HTML 렌더링 도입)
     for idx, match in enumerate(list(st.session_state.matches)):
         p1_row = df_players[df_players['name'] == match["p1"]] if not df_players.empty else pd.DataFrame()
         p2_row = df_players[df_players['name'] == match["p2"]] if not df_players.empty else pd.DataFrame()
         
-        st.markdown(f"""<div class='match-board-card'>""", unsafe_allow_html=True)
+        img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty and p1_row.iloc[0]['img_url'] else "https://via.placeholder.com/150/1c1e26/e2e8f0?text=User"
+        img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty and p2_row.iloc[0]['img_url'] else "https://via.placeholder.com/150/1c1e26/e2e8f0?text=User"
         
-        m_col1, m_col2, m_col3 = st.columns([4, 4, 4])
-        
-        # 👤 좌측 선수 구역 ([사진] 아래 [이름])
-        with m_col1:
-            img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty else ""
-            st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
-            st.image(img1 if img1 else "https://via.placeholder.com/140/1c1e26/e2e8f0?text=User")
-            st.markdown("</div>", unsafe_allow_html=True)
-            st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-top:12px; font-weight:bold; font-size:1.4rem;'>{match['p1']}</h3>", unsafe_allow_html=True)
-        
-        # 📝 중앙 안내 정보 구역 (수직 중앙 직렬 배열)
-        with m_col2:
-            st.markdown(f"""
-            <div class='match-mid-text-container'>
-                <p style='margin:0; font-size:1.3rem; font-weight:bold; color:#00ffa3;'>{idx+1}SET</p>
-                <h1 style='margin:5px 0; color:#fff; font-weight:900; font-size:2.3rem;'>VS</h1>
-                <p style='margin:0; font-size:1.1rem; font-weight:bold; color:#94a3b8;'>{match['map']}</p>
+        # 완전한 HTML Flex 구조를 사용하여 어떠한 환경에서도 세로 정렬로 쪼개지는 현상 전면 진압
+        st.markdown(f"""
+        <div class='match-board-card'>
+            <div style='display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d3139; padding-bottom: 8px; margin-bottom: 15px;'>
+                <p style='font-weight: bold; color: #00ffa3 !important; font-size: 1.2rem; margin: 0;'>SET {idx+1}</p>
             </div>
-            """, unsafe_allow_html=True)
-            
-        # 👤 우측 선수 구역 ([사진] 아래 [이름])
-        with m_col3:
-            img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty else ""
-            st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
-            st.image(img2 if img2 else "https://via.placeholder.com/140/1c1e26/e2e8f0?text=User")
-            st.markdown("</div>", unsafe_allow_html=True)
-            st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-top:12px; font-weight:bold; font-size:1.4rem;'>{match['p2']}</h3>", unsafe_allow_html=True)
-            
-        st.markdown("</div>", unsafe_allow_html=True)
+            <div class='match-board-flex-row'>
+                <!-- 좌측 선수 구역 -->
+                <div class='match-side-player-block'>
+                    <div class='match-player-img'><img src="{img1}"></div>
+                    <h3 style='color: #ffffff !important; margin-top:12px; font-weight:bold; font-size:1.4rem; text-align:center; margin-bottom:0;'>{match['p1']}</h3>
+                </div>
+                
+                <!-- 중앙 스케치 텍스트 구역 -->
+                <div class='match-mid-text-container'>
+                    <p style='margin:0; font-size:1.3rem; font-weight:bold; color:#00ffa3;'>{idx+1}SET</p>
+                    <h1 style='margin:2px 0; color:#fff; font-weight:900; font-size:2.3rem; line-height:1;'>VS</h1>
+                    <p style='margin:0; font-size:1.1rem; font-weight:bold; color:#94a3b8;'>{match['map']}</p>
+                </div>
+                
+                <!-- 우측 선수 구역 -->
+                <div class='match-side-player-block'>
+                    <div class='match-player-img'><img src="{img2}"></div>
+                    <h3 style='color: #ffffff !important; margin-top:12px; font-weight:bold; font-size:1.4rem; text-align:center; margin-bottom:0;'>{match['p2']}</h3>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # =========================================================
 # 📝 [2번 탭] 실시간 대진 지명 및 대진 현황 (텍스트 룸)
@@ -579,6 +598,3 @@ if not broadcast_mode:
                 else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
 
 # =========================================================
-# 📜 [맨 하단] 저작권 표기 구역
-# =========================================================
-st.markdown("<p class='copyright-text'>해당 포멧의 저작권은 스진동에 있습니다.</p>", unsafe_allow_html=True)
