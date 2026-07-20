@@ -100,7 +100,6 @@ st.markdown("""
     div[data-testid="stRadio"] label p { color: #ffffff !important; }
     .stDataFrame div { color: #ffffff !important; }
     
-    /* 🛠️ 메인 대시보드 탭 내부의 타이틀 상단 패딩 확보 (대진 지명창 겹침 해결) */
     .main-title-container {
         padding-top: 35px !important;
         margin-bottom: 5px !important;
@@ -113,13 +112,13 @@ st.markdown("""
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     
+    /* 좌우 팀 리스트 패딩 최소화하여 공간 압축 */
     .player-card {
         background-color: #181a20; border: 1px solid #2d3139;
-        border-radius: 10px; padding: 10px; margin-bottom: 10px;
+        border-radius: 10px; padding: 8px; margin-bottom: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
     
-    /* 🛠️ 팀 가르기 드래프트 판넬 상단 여백 보정 (글씨 씹힘 해결) */
     .draft-panel {
         background-color: #181a20; border: 1px solid #2d3139;
         border-radius: 12px; padding: 25px; 
@@ -127,16 +126,27 @@ st.markdown("""
         clear: both !important;
     }
     
-    .player-list-img img { width: 60px !important; height: 60px !important; object-fit: cover !important; border-radius: 6px !important; }
+    .player-list-img img { width: 50px !important; height: 50px !important; object-fit: cover !important; border-radius: 6px !important; }
     
-    .match-player-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
-    .match-map-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
+    /* 🛠️ 공간 확장에 맞춰 메인 이미지들의 시인성을 위해 높이를 180px로 확대 */
+    .match-player-img img { 
+        width: 100% !important; 
+        height: 180px !important; 
+        object-fit: cover !important; 
+        border-radius: 8px !important; 
+    }
+    .match-map-img img { 
+        width: 100% !important;
+        height: 180px !important; 
+        object-fit: cover !important; 
+        border-radius: 8px !important; 
+    }
     
     .race-icon-img { display: inline-block; width: 18px; height: 16px; object-fit: contain; vertical-align: middle; margin-right: 4px; }
 
     .extra-info {
-        font-size: 0.8rem; color: #00ffa3 !important; background-color: #0c0d10;
-        padding: 2px 8px; border-radius: 4px; margin-top: 6px; 
+        font-size: 0.75rem; color: #00ffa3 !important; background-color: #0c0d10;
+        padding: 1px 6px; border-radius: 4px; margin-top: 4px; 
         display: inline-block; border: 1px solid rgba(0, 255, 163, 0.2);
     }
     .extra-info * { color: #00ffa3 !important; }
@@ -157,7 +167,6 @@ st.markdown("""
     }
     .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
 
-    /* 🛠️ 오직 브라우저 최상단의 메인 대 메뉴 탭만 위로 숨겨지도록 고정 */
     .stApp > div:nth-child(1) .stTabs {
         margin-top: -50px !important;
     }
@@ -173,7 +182,6 @@ st.markdown("""
         background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
     }
     
-    /* 관리자 창 내부의 종족별 서브 탭 컨테이너 */
     .sub-tabs-container {
         margin-top: 25px !important;
         padding-top: 10px !important;
@@ -206,7 +214,7 @@ def parse_race(race_text):
     if "프" in race_text or "pr" in race_text or "토" in race_text: return "프로토스"
     return "미정"
 
-# 종족 배지 가독성 빌더 (노란 원 잔상 완벽 제거 완료)
+# 종족 배지 가독성 빌더
 def get_race_badge_html(race_text):
     norm_race = parse_race(race_text)
     icon_url = RACE_ICONS.get(norm_race)
@@ -256,7 +264,6 @@ else:
 # 🏆 [1번 탭] 메인 경기 대시보드 화면
 # =========================================================
 with tab_main:
-    # 🛠️ 타이틀 구역에 패딩 전용 컨테이너 레이어 씌움 (겹침 현상 영구 차단)
     st.markdown('<div class="main-title-container">', unsafe_allow_html=True)
     if st.session_state.title_type == "이미지 업로드" and st.session_state.title_img is not None:
         t_col1, t_col2, t_col3 = st.columns([1.5, 3, 1.5])
@@ -267,9 +274,10 @@ with tab_main:
         
     st.markdown("<hr style='margin-top: 5px; margin-bottom: 15px;'>", unsafe_allow_html=True)
 
-    main_col1, main_col2, main_col3 = st.columns([2.5, 5, 2.5])
+    # 🛠️ [레이아웃 대격변] 좌우 비율을 2:6:2로 개편하여 중앙 MATCH BOARD를 엄청나게 넓게 세팅
+    main_col1, main_col2, main_col3 = st.columns([2, 6, 2])
 
-    # 👈 좌측 팀 명단
+    # 👈 좌측 팀 명단 (슬림형 적용)
     with main_col1:
         left_team_data = st.session_state.teams["Left_Team"]
         st.markdown(f"<h2 style='color: #00ffa3 !important; text-align: center; font-weight: bold;'>{left_team_data['name']}</h2>", unsafe_allow_html=True)
@@ -282,13 +290,13 @@ with tab_main:
             
             with st.container():
                 st.markdown(f"<div class='player-card'>", unsafe_allow_html=True)
-                p_cols = st.columns([1.2, 2.2, 0.6] if not broadcast_mode else [1.2, 2.8])
+                p_cols = st.columns([1.1, 2.3, 0.6] if not broadcast_mode else [1.1, 2.9])
                 with p_cols[0]:
                     st.markdown("<div class='player-list-img'>", unsafe_allow_html=True)
                     st.image(img if img else "https://via.placeholder.com/60/181a20/e2e8f0?text=User")
                     st.markdown("</div>", unsafe_allow_html=True)
                 with p_cols[1]:
-                    st.markdown(f"<p style='margin-bottom:2px; font-size:1.1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='margin-bottom:1px; font-size:1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
                     st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
                     if not df_players.empty and not p_row.empty:
                         extra_info_list = []
@@ -306,7 +314,7 @@ with tab_main:
                             st.rerun()
                 st.markdown("</div>", unsafe_allow_html=True)
 
-    # 👉 우측 팀 명단
+    # 👉 우측 팀 명단 (슬림형 적용)
     with main_col3:
         right_team_data = st.session_state.teams["Right_Team"]
         st.markdown(f"<h2 style='color: #00ffa3 !important; text-align: center; font-weight: bold;'>{right_team_data['name']}</h2>", unsafe_allow_html=True)
@@ -319,13 +327,13 @@ with tab_main:
             
             with st.container():
                 st.markdown(f"<div class='player-card'>", unsafe_allow_html=True)
-                p_cols = st.columns([1.2, 2.2, 0.6] if not broadcast_mode else [1.2, 2.8])
+                p_cols = st.columns([1.1, 2.3, 0.6] if not broadcast_mode else [1.1, 2.9])
                 with p_cols[0]:
                     st.markdown("<div class='player-list-img'>", unsafe_allow_html=True)
                     st.image(img if img else "https://via.placeholder.com/60/181a20/e2e8f0?text=User")
                     st.markdown("</div>", unsafe_allow_html=True)
                 with p_cols[1]:
-                    st.markdown(f"<p style='margin-bottom:2px; font-size:1.1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='margin-bottom:1px; font-size:1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
                     st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
                     if not df_players.empty and not p_row.empty:
                         extra_info_list = []
@@ -343,7 +351,7 @@ with tab_main:
                                 st.rerun()
                     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ⚔️ 중앙 실시간 대진 지명 및 MATCH BOARD
+    # ⚔️ 중앙 광활한 MATCH BOARD 구역
     with main_col2:
         if not broadcast_mode:
             st.markdown("<h3 style='text-align: center; color:#00ffa3 !important; font-weight: bold; margin-bottom: 15px;'>📝 실시간 대진 지명</h3>", unsafe_allow_html=True)
@@ -379,26 +387,28 @@ with tab_main:
                         save_tournament_status()
                         st.rerun()
             
+            # 🖼️ 가로 공간이 대폭 확대되어 웅장해진 선수 vs 맵 매치업 구역
             m_col1, m_col2, m_col3 = st.columns([2.5, 5, 2.5])
             with m_col1:
-                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:2px;'>{match['p1']}</h3>", unsafe_allow_html=True)
+                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:5px;'>{match['p1']}</h3>", unsafe_allow_html=True)
                 img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty else ""
                 st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
                 st.image(img1 if img1 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
                 st.markdown("</div>", unsafe_allow_html=True)
             with m_col2:
-                st.markdown("<h2 style='text-align: center; margin-top: 15px; color: #00ffa3 !important; font-weight: bold; margin-bottom: 5px;'>VS</h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='text-align: center; margin-top: 25px; color: #00ffa3 !important; font-weight: bold; margin-bottom: 20px;'>VS</h2>", unsafe_allow_html=True)
                 if not map_row.empty and map_row.iloc[0]['map_url']:
                     st.markdown("<div class='match-map-img'>", unsafe_allow_html=True)
                     st.image(map_row.iloc[0]['map_url'])
                     st.markdown("</div>", unsafe_allow_html=True)
-                st.markdown(f"<p style='text-align: center; font-size: 0.85rem; color: #94a3b8 !important; margin-top: 2px;'>Map: {match['map']}</p>", unsafe_allow_html=True)
             with m_col3:
-                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:2px;'>{match['p2']}</h3>", unsafe_allow_html=True)
+                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:5px;'>{match['p2']}</h3>", unsafe_allow_html=True)
                 img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty else ""
                 st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
                 st.image(img2 if img2 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
                 st.markdown("</div>", unsafe_allow_html=True)
+                
+            st.markdown(f"<p style='text-align: center; font-size: 0.95rem; font-weight: bold; color: #00ffa3 !important; margin-top: 10px; margin-bottom: 0px;'>Map: {match['map']}</p>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
@@ -406,7 +416,6 @@ with tab_main:
 # =========================================================
 if not broadcast_mode:
     with tab_draft:
-        # 🛠️ 드래프트 총괄 패널 컨테이너 격리 보강 완료
         st.markdown("<div class='draft-panel'>", unsafe_allow_html=True)
         st.markdown("<h2 style='text-align: center; color: #00ffa3 !important; font-weight: bold;'>🤝 대회 출전 엔트리 팀 & 맵 지명 드래프트 룸</h2>", unsafe_allow_html=True)
         st.write("")
