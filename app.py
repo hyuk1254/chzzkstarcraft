@@ -8,7 +8,7 @@ import os
 st.set_page_config(layout="wide", page_title="스타크래프트 대회 대시보드")
 
 # =========================================================
-# 🔗 [중요] 여기에 질문자님의 구글 스프레드시트 주소를 입력하세요!
+# 🔗 [연동 완료] 질문자님의 구글 스프레드시트 주소를 적용했습니다!
 # =========================================================
 SHEET_URL = "https://docs.google.com/spreadsheets/d/1eA1GCEga0FcpmPMO8Qm8nXoZOPeQioAaBgXZs-NDyCc/edit?usp=sharing"
 
@@ -41,7 +41,7 @@ def save_tournament_status():
         "assigned_maps": st.session_state.assigned_maps,
         "title_type": st.session_state.title_type,
         "title_text": st.session_state.title_text,
-        "active_maps": st.session_state.get("active_maps", [])  # ⭐ 오늘 사용할 활성화 맵 데이터 보존
+        "active_maps": st.session_state.get("active_maps", [])
     }
     with open("local_backup_status.json", "w", encoding="utf-8") as f:
         json.dump(status_data, f, ensure_ascii=False, indent=4)
@@ -79,18 +79,20 @@ if "title_img" not in st.session_state:
 
 # 🎨 종족 마크 커스텀 세팅 구역
 RACE_ICONS = {
-    "테란": "https://media.discordapp.net/attachments/1528721011732643951/1528793445269770421/qtPQWR_1fiy6ly6NbndO9Sp-CA73mBjJ52ZtZGwQj1Ozo9FlQOeTV5pjtS3UKrA-_4qCiNLGr3_rgpklZ1HSJCk-0kw5lxqO-VCVHEvGo6jDv60hOCVhzX4Kcun7dxbwK73isQF0cBHi3qjeHDct5w.webp?ex=6a5f9758&is=6a5e45d8&hm=e3199aaefab4395ddca0983c8738bee5bf7c491b6ff3c456a437ce3d9913ad5f&=&format=webp",  # 👈 여기에 테란 마크 주소 삽입
-    "저그": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793444846403715/vkWLywILixMzHkg83QumKeJR3YPhDMGdAZtjbJ2SBLPOQCHgpqcbXRCRyudHo-3nP5AYQEkKIJFncVwYoOjG4AHdeJ-dcwc1uwhiR90LsKIfDy6If7-s5EhI2xI59o0Vkchd9PNFAOFM_CQamYXFXQ.webp?ex=6a5f9758&is=6a5e45d8&hm=dd0ba630755f7d54b893c5e17412f56f4dcea5c06e69d6f970aaa4dfdacd4c3f&",  # 👈 여기에 저그 마크 주소 삽입
-    "프로토스": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793444435099648/WrK9L73w0c_CY7HVAOuXzdRg4yS7OBrMXtBIs1qEGHnPZPTeH7N8t1Mzb8sIRkcSkLSi0v47wBiONdp35r10WIE-tmRf8d4EN2gUaMBVgOR0OYFJj_kPILzCITBFwL6SMK05jX0r1pnJiNIp2t5PjQ.webp?ex=6a5f9758&is=6a5e45d8&hm=63492a3a94779f80643e3c3f5a1f546e5df60b4da678e33ae2b9e260b58b76c2&", # 👈 여기에 프로토스 마크 주소 삽입
+    "테란": "https://via.placeholder.com/20/00ffa3/ffffff?text=T",  # 👈 여기에 자체 제작하신 테란 마크 주소 삽입
+    "저그": "https://via.placeholder.com/20/00ffa3/ffffff?text=Z",  # 👈 여기에 자체 제작하신 저그 마크 주소 삽입
+    "프로토스": "https://via.placeholder.com/20/00ffa3/ffffff?text=P", # 👈 여기에 자체 제작하신 프로토스 마크 주소 삽입
 }
 
 # --- 🎨 치지직 오피셜 컬러 및 이미지 크롭 커스텀 스타일 ---
 st.markdown("""
 <style>
     .stApp { background-color: #0c0d10; color: #e2e8f0; }
+    
     .stApp p, .stApp span, .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6, .stApp div {
         color: #e2e8f0 !important;
     }
+    
     div[data-baseweb="select"] * { color: #ffffff !important; }
     div[data-testid="stSelectbox"] label p { color: #00ffa3 !important; font-weight: bold; }
     ul[role="listbox"] li { background-color: #1c1e26 !important; color: #ffffff !important; }
@@ -142,20 +144,45 @@ st.markdown("""
     }
     .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
 
-    .stTabs { margin-top: -50px !important; }
-    .stTabs [data-baseweb="tab-list"] { gap: 4px; justify-content: flex-start !important; padding-left: 5px; border-bottom: 1px solid #2d3139; margin-bottom: 15px; }
-    .stTabs [data-baseweb="tab"] {
+    .stApp > div:nth-child(1) .stTabs {
+        margin-top: -50px !important;
+    }
+    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab-list"] { 
+        gap: 4px; justify-content: flex-start !important; padding-left: 5px; border-bottom: 1px solid #2d3139; margin-bottom: 15px; 
+    }
+    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab"] {
         height: 32px !important; background-color: #14161d; border-radius: 4px 4px 0px 0px;
         padding: 4px 12px !important; font-size: 0.85rem !important; color: #64748b !important;
         border: 1px solid #2d3139; border-bottom: none;
     }
-    .stTabs [data-baseweb="tab"] * { color: inherit !important; }
-    .stTabs [aria-selected="true"] { background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; }
+    .stApp > div:nth-child(1) .stTabs [aria-selected="true"] { 
+        background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
+    }
     
-    /* 서브 내부 탭 스타일 조정 (행정관리용 백오피스 내부 탭) */
-    .sub-tabs [data-baseweb="tab-list"] { margin-top: 0px !important; border-bottom: 1px solid #2d3139; }
-    .sub-tabs [data-baseweb="tab"] { background-color: #0c0d10 !important; border: none !important; color: #94a3b8 !important; }
-    .sub-tabs [aria-selected="true"] { color: #00ffa3 !important; border-bottom: 2px solid #00ffa3 !important; border-top: none !important; background-color: transparent !important; }
+    .sub-tabs {
+        margin-top: 10px !important;
+        padding-top: 5px !important;
+    }
+    .sub-tabs [data-baseweb="tab-list"] { 
+        margin-top: 0px !important; 
+        border-bottom: 1px solid #2d3139 !important; 
+        justify-content: flex-start !important;
+        gap: 10px !important;
+    }
+    .sub-tabs [data-baseweb="tab"] { 
+        background-color: #0c0d10 !important; 
+        border: none !important; 
+        color: #94a3b8 !important; 
+        height: auto !important;
+        padding: 8px 16px !important;
+    }
+    .sub-tabs [aria-selected="true"] { 
+        color: #00ffa3 !important; 
+        border-bottom: 2px solid #00ffa3 !important; 
+        border-top: none !important; 
+        background-color: transparent !important; 
+        font-weight: bold !important;
+    }
 
     .stCheckbox [data-testid="stCheckboxUserSelectBackdrop"] { background-color: #00ffa3 !important; }
     hr { border-color: #2d3139 !important; }
@@ -310,7 +337,6 @@ with tab_main:
             with ctrl_col1: p1 = st.selectbox(f"{left_team_data['name']} 선택", options=left_team_data["players"], key="sb_p1")
             with ctrl_col2: p2 = st.selectbox(f"{right_team_data['name']} 선택", options=right_team_data["players"], key="sb_p2")
             with ctrl_col3:
-                # ⭐ 팀가르기 탭에서 필터링 활성화된 맵 리스트가 있으면 최우선 적용
                 map_pool = st.session_state.assigned_maps if st.session_state.assigned_maps else (st.session_state.active_maps if st.session_state.active_maps else (df_maps['map_name'].tolist() if not df_maps.empty else []))
                 selected_map = st.selectbox("경기 맵 선택", options=map_pool, key="sb_map")
                 
@@ -393,7 +419,6 @@ if not broadcast_mode:
             st.markdown("<hr>", unsafe_allow_html=True)
             st.markdown("#### 2️⃣ 세트별 경기 사용 맵 추가")
             
-            # ⭐ 오늘 쓸 맵으로 체크 활성화된 맵 풀만 드롭다운에 노출
             active_map_pool = st.session_state.active_maps if st.session_state.active_maps else (df_maps['map_name'].tolist() if not df_maps.empty else [])
             if active_map_pool:
                 m_col1, m_col2 = st.columns([3, 1])
@@ -451,7 +476,7 @@ if not broadcast_mode:
         st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
-# ⚙️ [3번 탭] 대회 데이터 관리 (체크박스 필터링 개편 ⭐)
+# ⚙️ [3번 탭] 대회 데이터 관리
 # =========================================================
 if not broadcast_mode:
     with tab_admin:
@@ -479,14 +504,12 @@ if not broadcast_mode:
                     save_tournament_status()
                     st.success("팀명 백업 완료!")
             
-            # ⭐ [NEW] 맵 리스트 체크박스 선택 제어 개편
             with st.container(border=True):
                 st.subheader("🗺️ 오늘 대회의 사용할 맵 선택")
                 if not df_maps.empty:
                     st.markdown("<small style='color:#94a3b8;'>마스터 DB 맵 리스트입니다. 오늘 중계에 활성화할 맵을 체크하세요.</small>", unsafe_allow_html=True)
                     updated_maps = []
                     
-                    # 3열 격자로 체크박스 깔끔하게 정렬 배치
                     map_names = df_maps['map_name'].tolist()
                     m_cols = st.columns(3)
                     for i, m_name in enumerate(map_names):
@@ -500,33 +523,27 @@ if not broadcast_mode:
                         save_tournament_status()
                         st.success("오늘 사용할 대회 맵 리스트가 업데이트되었습니다!")
                         st.rerun()
-                else:
-                    st.caption("구글 시트에 맵 데이터가 비어있습니다.")
+                else: st.caption("구글 시트에 맵 데이터가 비어있습니다.")
 
         with adm_col2:
-            # ⭐ [NEW] 선수 풀 종족별 분리 탭 체크박스 시스템 전면 개편
             with st.container(border=True):
                 st.subheader("📅 당일 엔트리 선수 체크 확정 (종족별 분류)")
                 if not df_players.empty:
-                    st.markdown("<small style='color:#94a3b8;'>오늘 현장에 출전 등판한 선수들을 종족별로 필터링하여 체크하세요.</small>", unsafe_allow_html=True)
+                    st.markdown("<p style='font-size: 0.85rem; color:#94a3b8; margin-bottom: 12px;'>오늘 현장에 출전 등판한 선수들을 종족별로 필터링하여 체크하세요.</p>", unsafe_allow_html=True)
                     
-                    # 1단계: 마스터 DB 명단을 종족별 그룹으로 사전 쪼개기
                     players_by_race = {"테란": [], "저그": [], "프로토스": [], "미정": []}
                     for _, row in df_players.iterrows():
                         p_name = row['name']
                         p_race = parse_race(row['race'])
                         players_by_race[p_race].append(p_name)
                     
-                    # 2단계: 백오피스 내부 서브 탭 레이아웃 생성
                     st.markdown('<div class="sub-tabs">', unsafe_allow_html=True)
                     t_terran, t_zerg, t_protoss, t_unknown = st.tabs(["🔵 테란", "🔴 저그", "🟡 프로토스", "⚪ 기타"])
                     st.markdown('</div>', unsafe_allow_html=True)
                     
-                    # 각각의 탭 내부 체크 상태를 임시 공용 딕셔너리로 관리
                     if "entry_chk_state" not in st.session_state:
                         st.session_state.entry_chk_state = {name: (name in st.session_state.today_entry) for name in df_players['name'].tolist()}
                     
-                    # 각 종족 서브 탭 내부에 체크박스 바인딩 (2열 배치)
                     with t_terran:
                         if players_by_race["테란"]:
                             cc = st.columns(2)
@@ -557,13 +574,11 @@ if not broadcast_mode:
                     
                     st.markdown("<br>", unsafe_allow_html=True)
                     if st.button("📅 당일 출전 엔트리 라인업 저장"):
-                        # 체크 완료된 선수들만 수집하여 엔트리에 세이브
                         st.session_state.today_entry = [name for name, is_checked in st.session_state.entry_chk_state.items() if is_checked]
                         save_tournament_status()
                         st.success(f"총 {len(st.session_state.today_entry)}명의 선수 엔트리 저장이 완료되었습니다!")
                         st.rerun()
-                else:
-                    st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
+                else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
 
 # =========================================================
 # 📜 [맨 하단] 저작권 표기 구역
