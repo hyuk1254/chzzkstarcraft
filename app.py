@@ -144,6 +144,7 @@ st.markdown("""
     }
     .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
 
+    /* 🛠️ 오직 '최상단 브라우저 대 메뉴 탭'만 마이너스 마진(-50px)을 먹도록 고정 */
     .stApp > div:nth-child(1) .stTabs {
         margin-top: -50px !important;
     }
@@ -159,24 +160,29 @@ st.markdown("""
         background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
     }
     
-    .sub-tabs {
-        margin-top: 10px !important;
-        padding-top: 5px !important;
+    /* 🛠️ [🚨 완벽 수정] 관리자 창 내부의 종족별 '서브 탭 그룹' 전용 격리 CSS 스타일 */
+    .sub-tabs-container {
+        margin-top: 25px !important; /* 상단 텍스트 안내글과 탭 사이의 확실한 마진 간격 */
+        padding-top: 10px !important;
+        clear: both !important;
     }
-    .sub-tabs [data-baseweb="tab-list"] { 
-        margin-top: 0px !important; 
+    .sub-tabs-container [data-baseweb="tab-list"] { 
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+        height: auto !important;
         border-bottom: 1px solid #2d3139 !important; 
         justify-content: flex-start !important;
-        gap: 10px !important;
+        gap: 12px !important;
     }
-    .sub-tabs [data-baseweb="tab"] { 
+    .sub-tabs-container [data-baseweb="tab"] { 
         background-color: #0c0d10 !important; 
-        border: none !important; 
+        border: 1px solid transparent !important; 
         color: #94a3b8 !important; 
-        height: auto !important;
-        padding: 8px 16px !important;
+        height: 40px !important; /* 높이가 찌그러지지 않도록 완전 고정 */
+        padding: 6px 16px !important;
+        margin-top: 0px !important;
     }
-    .sub-tabs [aria-selected="true"] { 
+    .sub-tabs-container [aria-selected="true"] { 
         color: #00ffa3 !important; 
         border-bottom: 2px solid #00ffa3 !important; 
         border-top: none !important; 
@@ -529,7 +535,8 @@ if not broadcast_mode:
             with st.container(border=True):
                 st.subheader("📅 당일 엔트리 선수 체크 확정 (종족별 분류)")
                 if not df_players.empty:
-                    st.markdown("<p style='font-size: 0.85rem; color:#94a3b8; margin-bottom: 12px;'>오늘 현장에 출전 등판한 선수들을 종족별로 필터링하여 체크하세요.</p>", unsafe_allow_html=True)
+                    # 🛠️ [CSS 격리 레이어 설치] 텍스트 설명문구 영역
+                    st.markdown("<p style='font-size: 0.85rem; color:#94a3b8; margin-bottom: 5px;'>오늘 현장에 출전 등판한 선수들을 종족별로 필터링하여 체크하세요.</p>", unsafe_allow_html=True)
                     
                     players_by_race = {"테란": [], "저그": [], "프로토스": [], "미정": []}
                     for _, row in df_players.iterrows():
@@ -537,7 +544,8 @@ if not broadcast_mode:
                         p_race = parse_race(row['race'])
                         players_by_race[p_race].append(p_name)
                     
-                    st.markdown('<div class="sub-tabs">', unsafe_allow_html=True)
+                    # 🛠️ [HTML/CSS 격리] 서브 탭 컨테이너 클래스를 변경하여 완벽한 상단 이격 거리 확보
+                    st.markdown('<div class="sub-tabs-container">', unsafe_allow_html=True)
                     t_terran, t_zerg, t_protoss, t_unknown = st.tabs(["🔵 테란", "🔴 저그", "🟡 프로토스", "⚪ 기타"])
                     st.markdown('</div>', unsafe_allow_html=True)
                     
@@ -579,8 +587,3 @@ if not broadcast_mode:
                         st.success(f"총 {len(st.session_state.today_entry)}명의 선수 엔트리 저장이 완료되었습니다!")
                         st.rerun()
                 else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
-
-# =========================================================
-# 📜 [맨 하단] 저작권 표기 구역
-# =========================================================
-st.markdown("<p class='copyright-text'>해당 포멧의 저작권은 스진동에 있습니다.</p>", unsafe_allow_html=True)
