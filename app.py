@@ -355,3 +355,5 @@ if not broadcast_mode:
 # 📜 [맨 하단] 저작권 표기 구역
 # =========================================================
 st.markdown("<p class='copyright-text'>해당 포멧의 저작권은 스진동에 있습니다.</p>", unsafe_allow_html=True)
+streamlit
+pandas
