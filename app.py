@@ -77,9 +77,7 @@ else:
 if "title_img" not in st.session_state:
     st.session_state.title_img = None
 
-# =========================================================
-# 🎨 [연동 완료] 제공해주신 오피셜 고화질 종족 마크 주소를 각인했습니다!
-# =========================================================
+# 🎨 제공해주신 오피셜 고화질 종족 마크 세팅
 RACE_ICONS = {
     "테란": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793445269770421/qtPQWR_1fiy6ly6NbndO9Sp-CA73mBjJ52ZtZGwQj1Ozo9FlQOeTV5pjtS3UKrA-_4qCiNLGr3_rgpklZ1HSJCk-0kw5lxqO-VCVHEvGo6jDv60hOCVhzX4Kcun7dxbwK73isQF0cBHi3qjeHDct5w.webp?ex=6a5f9758&is=6a5e45d8&hm=e3199aaefab4395ddca0983c8738bee5bf7c491b6ff3c456a437ce3d9913ad5f&",
     "저그": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793444846403715/vkWLywILixMzHkg83QumKeJR3YPhDMGdAZtjbJ2SBLPOQCHgpqcbXRCRyudHo-3nP5AYQEkKIJFncVwYoOjG4AHdeJ-dcwc1uwhiR90LsKIfDy6If7-s5EhI2xI59o0Vkchd9PNFAOFM_CQamYXFXQ.webp?ex=6a5f9758&is=6a5e45d8&hm=dd0ba630755f7d54b893c5e17412f56f4dcea5c06e69d6f970aaa4dfdacd4c3f&",
@@ -102,26 +100,39 @@ st.markdown("""
     div[data-testid="stRadio"] label p { color: #ffffff !important; }
     .stDataFrame div { color: #ffffff !important; }
     
+    /* 🛠️ 메인 대시보드 탭 내부의 타이틀 상단 패딩 확보 (대진 지명창 겹침 해결) */
+    .main-title-container {
+        padding-top: 35px !important;
+        margin-bottom: 5px !important;
+        clear: both !important;
+    }
     .main-title {
         text-align: center; font-size: 3rem !important; font-weight: 900 !important;
         color: #ffffff !important; letter-spacing: 2px; margin-bottom: 5px;
         background: linear-gradient(to right, #ffffff, #00ffa3);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
+    
     .player-card {
         background-color: #181a20; border: 1px solid #2d3139;
         border-radius: 10px; padding: 10px; margin-bottom: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
+    
+    /* 🛠️ 팀 가르기 드래프트 판넬 상단 여백 보정 (글씨 씹힘 해결) */
     .draft-panel {
         background-color: #181a20; border: 1px solid #2d3139;
-        border-radius: 12px; padding: 25px; margin-top: 10px;
+        border-radius: 12px; padding: 25px; 
+        margin-top: 35px !important;
+        clear: both !important;
     }
     
     .player-list-img img { width: 60px !important; height: 60px !important; object-fit: cover !important; border-radius: 6px !important; }
-    .match-player-img img { width: 100% !important; max-height: 140px !important; object-fit: cover !important; border-radius: 8px !important; }
-    .match-map-img img { max-height: 140px !important; object-fit: contain !important; border-radius: 8px !important; }
-    .race-icon-img { display: inline-block; width: 16px; height: 16px; object-fit: contain; vertical-align: middle; margin-right: 4px; }
+    
+    .match-player-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
+    .match-map-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
+    
+    .race-icon-img { display: inline-block; width: 18px; height: 16px; object-fit: contain; vertical-align: middle; margin-right: 4px; }
 
     .extra-info {
         font-size: 0.8rem; color: #00ffa3 !important; background-color: #0c0d10;
@@ -146,6 +157,7 @@ st.markdown("""
     }
     .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
 
+    /* 🛠️ 오직 브라우저 최상단의 메인 대 메뉴 탭만 위로 숨겨지도록 고정 */
     .stApp > div:nth-child(1) .stTabs {
         margin-top: -50px !important;
     }
@@ -161,33 +173,23 @@ st.markdown("""
         background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
     }
     
+    /* 관리자 창 내부의 종족별 서브 탭 컨테이너 */
     .sub-tabs-container {
         margin-top: 25px !important;
         padding-top: 10px !important;
         clear: both !important;
     }
     .sub-tabs-container [data-baseweb="tab-list"] { 
-        margin-top: 0px !important;
-        padding-top: 0px !important;
-        height: auto !important;
-        border-bottom: 1px solid #2d3139 !important; 
-        justify-content: flex-start !important;
-        gap: 12px !important;
+        margin-top: 0px !important; padding-top: 0px !important; height: auto !important;
+        border-bottom: 1px solid #2d3139 !important; justify-content: flex-start !important; gap: 12px !important;
     }
     .sub-tabs-container [data-baseweb="tab"] { 
-        background-color: #0c0d10 !important; 
-        border: 1px solid transparent !important; 
-        color: #94a3b8 !important; 
-        height: 40px !important;
-        padding: 6px 16px !important;
-        margin-top: 0px !important;
+        background-color: #0c0d10 !important; border: 1px solid transparent !important; color: #94a3b8 !important; 
+        height: 40px !important; padding: 6px 16px !important; margin-top: 0px !important;
     }
     .sub-tabs-container [aria-selected="true"] { 
-        color: #00ffa3 !important; 
-        border-bottom: 2px solid #00ffa3 !important; 
-        border-top: none !important; 
-        background-color: transparent !important; 
-        font-weight: bold !important;
+        color: #00ffa3 !important; border-bottom: 2px solid #00ffa3 !important; border-top: none !important; 
+        background-color: transparent !important; font-weight: bold !important;
     }
 
     .stCheckbox [data-testid="stCheckboxUserSelectBackdrop"] { background-color: #00ffa3 !important; }
@@ -201,15 +203,18 @@ def parse_race(race_text):
     race_text = str(race_text).strip().lower()
     if "테" in race_text or "te" in race_text: return "테란"
     if "저" in race_text or "ze" in race_text: return "저그"
-    if "프" in race_text or "pr" in race_text: return "프로토스"
+    if "프" in race_text or "pr" in race_text or "토" in race_text: return "프로토스"
     return "미정"
 
+# 종족 배지 가독성 빌더 (노란 원 잔상 완벽 제거 완료)
 def get_race_badge_html(race_text):
     norm_race = parse_race(race_text)
     icon_url = RACE_ICONS.get(norm_race)
-    if icon_url and norm_race != "미정":
+    if icon_url and norm_race != "미정" and "placeholder" not in icon_url:
         return f'<img src="{icon_url}" class="race-icon-img"> <span style="color:#94a3b8 !important; font-size:0.9rem; vertical-align:middle;">{norm_race}</span>'
-    return f'<span style="color:#94a3b8 !important; font-size:0.9rem; vertical-align:middle;">🟡 {norm_race}</span>'
+    elif norm_race != "미정":
+        return f'<span style="color:#94a3b8 !important; font-size:0.9rem; vertical-align:middle;">{norm_race}</span>'
+    return f'<span style="color:#94a3b8 !important; font-size:0.9rem; vertical-align:middle;">지정 안 됨</span>'
 
 # --- 🎬 [사이드바] 스크린 제어 ---
 with st.sidebar:
@@ -251,11 +256,14 @@ else:
 # 🏆 [1번 탭] 메인 경기 대시보드 화면
 # =========================================================
 with tab_main:
+    # 🛠️ 타이틀 구역에 패딩 전용 컨테이너 레이어 씌움 (겹침 현상 영구 차단)
+    st.markdown('<div class="main-title-container">', unsafe_allow_html=True)
     if st.session_state.title_type == "이미지 업로드" and st.session_state.title_img is not None:
         t_col1, t_col2, t_col3 = st.columns([1.5, 3, 1.5])
         with t_col2: st.image(st.session_state.title_img, use_container_width=True)
     else:
         st.markdown(f"<h1 class='main-title'>{st.session_state.title_text}</h1>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
         
     st.markdown("<hr style='margin-top: 5px; margin-bottom: 15px;'>", unsafe_allow_html=True)
 
@@ -371,7 +379,7 @@ with tab_main:
                         save_tournament_status()
                         st.rerun()
             
-            m_col1, m_col2, m_col3 = st.columns([2, 3, 2])
+            m_col1, m_col2, m_col3 = st.columns([2.5, 5, 2.5])
             with m_col1:
                 st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:2px;'>{match['p1']}</h3>", unsafe_allow_html=True)
                 img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty else ""
@@ -379,11 +387,12 @@ with tab_main:
                 st.image(img1 if img1 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
                 st.markdown("</div>", unsafe_allow_html=True)
             with m_col2:
-                st.markdown("<h2 style='text-align: center; margin-top: 20px; color: #00ffa3 !important; font-weight: bold;'>VS</h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='text-align: center; margin-top: 15px; color: #00ffa3 !important; font-weight: bold; margin-bottom: 5px;'>VS</h2>", unsafe_allow_html=True)
                 if not map_row.empty and map_row.iloc[0]['map_url']:
                     st.markdown("<div class='match-map-img'>", unsafe_allow_html=True)
-                    st.image(map_row.iloc[0]['map_url'], caption=f"Map: {match['map']}")
+                    st.image(map_row.iloc[0]['map_url'])
                     st.markdown("</div>", unsafe_allow_html=True)
+                st.markdown(f"<p style='text-align: center; font-size: 0.85rem; color: #94a3b8 !important; margin-top: 2px;'>Map: {match['map']}</p>", unsafe_allow_html=True)
             with m_col3:
                 st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:2px;'>{match['p2']}</h3>", unsafe_allow_html=True)
                 img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty else ""
@@ -397,6 +406,7 @@ with tab_main:
 # =========================================================
 if not broadcast_mode:
     with tab_draft:
+        # 🛠️ 드래프트 총괄 패널 컨테이너 격리 보강 완료
         st.markdown("<div class='draft-panel'>", unsafe_allow_html=True)
         st.markdown("<h2 style='text-align: center; color: #00ffa3 !important; font-weight: bold;'>🤝 대회 출전 엔트리 팀 & 맵 지명 드래프트 룸</h2>", unsafe_allow_html=True)
         st.write("")
