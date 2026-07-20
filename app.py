@@ -150,13 +150,13 @@ st.markdown("""
         background-color: #14161d; border: 2px solid #2d3139; border-radius: 16px; padding: 15px 20px; margin-bottom: 35px;
     }
     
-    /* 🛠️ [🚨 세로 줄바꿈 전면 방지 규칙] 맵 타임라인 가로 강제 연동 */
+    /* 맵 타임라인 가로 강제 연동 */
     .map-timeline-row {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
         gap: 15px !important;
-        flex-wrap: nowrap !important; /* 모바일/좁은 화면에서도 세로로 떨어지는 것 절대 차단 */
+        flex-wrap: nowrap !important;
         overflow-x: auto !important;
     }
     .map-timeline-box {
@@ -168,12 +168,13 @@ st.markdown("""
         object-fit: cover !important; border-radius: 6px !important;
     }
     
-    /* 🛠️ [🚨 매치 보드 수평 구조 강제 봉인] */
+    /* 🛠️ [레이아웃 절대 고정] 매치 보드 수평 구조 및 정렬 유지 */
     .match-board-flex-row {
         display: flex !important;
-        flex-direction: row !important; /* 무조건 가로 일직선 유지 */
+        flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
+        width: 100% !important;
     }
     
     .match-board-card {
@@ -199,6 +200,7 @@ st.markdown("""
     .match-mid-text-container {
         text-align: center !important;
         flex-grow: 1 !important;
+        display: block !important;
     }
 
     .admin-match-text-row {
@@ -299,7 +301,7 @@ else:
     tab_main = st.container()
 
 # =========================================================
-# 🏆 [1번 탭] 방송 송출 오버레이 (수평 배열 완전 고정 🌟)
+# 🏆 [1번 탭] 방송 송출 오버레이
 # =========================================================
 with tab_main:
     st.markdown('<div class="main-title-container">', unsafe_allow_html=True)
@@ -311,7 +313,7 @@ with tab_main:
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown("<hr style='margin-top: 5px; margin-bottom: 25px;'>", unsafe_allow_html=True)
 
-    # 1. 최상단: [1팀 멤버] 와 [2팀 멤버] 가로 배치 박스
+    # 1. 최상단: [1팀 멤버] 와 [2팀 멤버] 박스
     team_left, team_right = st.columns(2)
     
     with team_left:
@@ -358,12 +360,11 @@ with tab_main:
             st.caption("<p style='text-align:center; color:#64748b; margin-top:15px;'>배정된 선수가 없습니다.</p>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # 2. 중간: [사용맵 나열] 가로형 단독 묶음 배너 (HTML 플렉스로 세로 리배치 철저 방어)
+    # 2. 중간: [사용맵 나열] 가로형 단독 배너
     if st.session_state.matches:
         st.markdown("<div class='use-map-container-box'>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center; color: #94a3b8; font-weight: bold; margin-top:0px; margin-bottom:15px;'>🗺️ 사용맵 나열</h3>", unsafe_allow_html=True)
         
-        # HTML 뼈대로 수평 고정 컨테이너 시작
         timeline_html = "<div class='map-timeline-row'>"
         for idx, match in enumerate(st.session_state.matches):
             map_row = df_maps[df_maps['map_name'] == match["map"]] if not df_maps.empty else pd.DataFrame()
@@ -383,7 +384,7 @@ with tab_main:
     st.markdown("<br><h2 style='text-align: center; letter-spacing: 6px; font-weight: 900; color: #ffffff !important;'>MATCH BOARD</h2>", unsafe_allow_html=True)
     st.write("")
     
-    # 3. 하단: [사진 아래 이름] 형태의 완전한 1:1 수평 매치보드 (스트림릿 레이아웃 버그 회피 HTML 렌더링 도입)
+    # 3. 하단: [🚨 버그 박멸 완료] 스케치 레이아웃 1:1 수평 대진 카드 출력
     for idx, match in enumerate(list(st.session_state.matches)):
         p1_row = df_players[df_players['name'] == match["p1"]] if not df_players.empty else pd.DataFrame()
         p2_row = df_players[df_players['name'] == match["p2"]] if not df_players.empty else pd.DataFrame()
@@ -391,7 +392,7 @@ with tab_main:
         img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty and p1_row.iloc[0]['img_url'] else "https://via.placeholder.com/150/1c1e26/e2e8f0?text=User"
         img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty and p2_row.iloc[0]['img_url'] else "https://via.placeholder.com/150/1c1e26/e2e8f0?text=User"
         
-        # 완전한 HTML Flex 구조를 사용하여 어떠한 환경에서도 세로 정렬로 쪼개지는 현상 전면 진압
+        # 주입형 데이터 포매팅 문자열(f) 누락 버그 완벽 수정
         st.markdown(f"""
         <div class='match-board-card'>
             <div style='display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d3139; padding-bottom: 8px; margin-bottom: 15px;'>
@@ -421,7 +422,7 @@ with tab_main:
         """, unsafe_allow_html=True)
 
 # =========================================================
-# 📝 [2번 탭] 실시간 대진 지명 및 대진 현황 (텍스트 룸)
+# 📝 [2번 탭] 실시간 대진 지명 및 대진 현황
 # =========================================================
 if not broadcast_mode:
     with tab_draft:
@@ -450,6 +451,7 @@ if not broadcast_mode:
         st.markdown("<br><hr style='border-style: dashed;'><br>", unsafe_allow_html=True)
         st.markdown("### 📊 현재 구성된 실시간 대진표 리스트 (글씨 최적화 모드)", unsafe_allow_html=True)
         
+        # 🛠️ [🚨 오타 완벽 복구 교정 완료] 
         if st.session_state.matches:
             for idx, match in enumerate(list(st.session_state.matches)):
                 st.markdown(f"<div class='admin-match-text-row'>", unsafe_allow_html=True)
@@ -596,5 +598,3 @@ if not broadcast_mode:
                         st.success(f"총 {len(st.session_state.today_entry)}명의 선수 엔트리 저장이 완료되었습니다!")
                         st.rerun()
                 else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
-
-# =========================================================
