@@ -112,91 +112,80 @@ st.markdown("""
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     
+    /* 방송 송출 전용 가로형 배치 크기 */
+    .broadcast-team-box {
+        background-color: #181a20; border: 1px solid #2d3139;
+        border-radius: 12px; padding: 15px; margin-bottom: 20px;
+    }
+    .broadcast-player-card {
+        background-color: #0c0d10; border: 1px solid #2d3139;
+        border-radius: 10px; padding: 10px; text-align: center;
+    }
+    .broadcast-avatar-img img {
+        width: 85px !important; height: 85px !important;
+        object-fit: cover !important; border-radius: 50% !important;
+        border: 2px solid #2d3139; margin: 0 auto 8px auto;
+    }
+
     .player-card {
         background-color: #181a20; border: 1px solid #2d3139;
         border-radius: 10px; padding: 8px; margin-bottom: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
-    
     .draft-panel {
         background-color: #181a20; border: 1px solid #2d3139;
-        border-radius: 12px; padding: 25px; 
-        margin-top: 35px !important;
-        clear: both !important;
+        border-radius: 12px; padding: 25px; margin-top: 35px !important;
     }
     
-    .player-list-img img { width: 50px !important; height: 50px !important; object-fit: cover !important; border-radius: 6px !important; }
-    
+    /* 🛠️ [🚨 레이아웃 버그 완전 박멸] 가로 세로 높이를 240px 스케일로 정형화 및 cover 동기화 */
     .match-board-card {
-        background-color: #181a20; 
-        border: 1px solid #2d3139; 
-        border-radius: 12px; 
-        padding: 20px; 
-        margin: 0 auto 20px auto !important;
-        max-width: 720px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        background-color: #181a20; border: 1px solid #2d3139; border-radius: 14px; 
+        padding: 25px; margin: 0 auto 25px auto !important;
+        max-width: 840px !important; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    }
+    .match-player-img img { 
+        width: 100% !important; height: 240px !important; 
+        object-fit: cover !important; border-radius: 8px !important; 
+    }
+    .match-map-img img { 
+        width: 100% !important; height: 240px !important; 
+        object-fit: cover !important; border-radius: 8px !important; 
     }
     
-    .match-player-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
-    .match-map-img img { width: 100% !important; height: 160px !important; object-fit: cover !important; border-radius: 8px !important; }
-    
-    .race-icon-img { display: inline-block; width: 18px; height: 16px; object-fit: contain; vertical-align: middle; margin-right: 4px; }
+    /* 관리 조작 창 전용 텍스트 대진 리스트 스타일 */
+    .admin-match-text-row {
+        background-color: #181a20; border: 1px solid #2d3139;
+        border-radius: 8px; padding: 12px 20px; margin-bottom: 10px;
+    }
 
+    .race-icon-img { display: inline-block; width: 18px; height: 16px; object-fit: contain; vertical-align: middle; margin-right: 4px; }
     .extra-info {
         font-size: 0.75rem; color: #00ffa3 !important; background-color: #0c0d10;
-        padding: 1px 6px; border-radius: 4px; margin-top: 4px; 
-        display: inline-block; border: 1px solid rgba(0, 255, 163, 0.2);
+        padding: 1px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; border: 1px solid rgba(0, 255, 163, 0.2);
     }
-    .extra-info * { color: #00ffa3 !important; }
     
     .stButton > button {
         padding: 3px 10px !important; font-size: 0.85rem !important;
-        line-height: 1.5 !important; border-radius: 6px !important;
         background-color: #1c1e26 !important; color: #e2e8f0 !important;
         border: 1px solid #2d3139 !important; transition: all 0.2s ease;
     }
     .stButton > button:hover { border-color: #00ffa3 !important; color: #00ffa3 !important; box-shadow: 0 0 8px rgba(0, 255, 163, 0.3); }
-    .stButton > button * { color: inherit !important; }
     
     .del-btn > div > button {
-        padding: 1px 6px !important; font-size: 0.75rem !important;
+        padding: 2px 8px !important; font-size: 0.8rem !important;
         background-color: rgba(255, 85, 85, 0.15) !important; color: #ff5555 !important;
         border: 1px solid rgba(255, 85, 85, 0.3) !important;
     }
-    .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
+    .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; }
 
-    .stApp > div:nth-child(1) .stTabs {
-        margin-top: -50px !important;
-    }
-    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab-list"] { 
-        gap: 4px; justify-content: flex-start !important; padding-left: 5px; border-bottom: 1px solid #2d3139; margin-bottom: 15px; 
-    }
-    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab"] {
-        height: 32px !important; background-color: #14161d; border-radius: 4px 4px 0px 0px;
-        padding: 4px 12px !important; font-size: 0.85rem !important; color: #64748b !important;
-        border: 1px solid #2d3139; border-bottom: none;
-    }
-    .stApp > div:nth-child(1) .stTabs [aria-selected="true"] { 
-        background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
-    }
+    .stApp > div:nth-child(1) .stTabs { margin-top: -50px !important; }
+    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab-list"] { gap: 4px; justify-content: flex-start !important; padding-left: 5px; border-bottom: 1px solid #2d3139; margin-bottom: 15px; }
+    .stApp > div:nth-child(1) .stTabs [data-baseweb="tab"] { height: 32px !important; background-color: #14161d; border-radius: 4px 4px 0px 0px; padding: 4px 12px !important; font-size: 0.85rem !important; color: #64748b !important; border: 1px solid #2d3139; border-bottom: none; }
+    .stApp > div:nth-child(1) .stTabs [aria-selected="true"] { background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; }
     
-    .sub-tabs-container {
-        margin-top: 25px !important;
-        padding-top: 10px !important;
-        clear: both !important;
-    }
-    .sub-tabs-container [data-baseweb="tab-list"] { 
-        margin-top: 0px !important; padding-top: 0px !important; height: auto !important;
-        border-bottom: 1px solid #2d3139 !important; justify-content: flex-start !important; gap: 12px !important;
-    }
-    .sub-tabs-container [data-baseweb="tab"] { 
-        background-color: #0c0d10 !important; border: 1px solid transparent !important; color: #94a3b8 !important; 
-        height: 40px !important; padding: 6px 16px !important; margin-top: 0px !important;
-    }
-    .sub-tabs-container [aria-selected="true"] { 
-        color: #00ffa3 !important; border-bottom: 2px solid #00ffa3 !important; border-top: none !important; 
-        background-color: transparent !important; font-weight: bold !important;
-    }
+    .sub-tabs-container { margin-top: 25px !important; padding-top: 10px !important; clear: both !important; }
+    .sub-tabs-container [data-baseweb="tab-list"] { margin-top: 0px !important; padding-top: 0px !important; height: auto !important; border-bottom: 1px solid #2d3139 !important; justify-content: flex-start !important; gap: 12px !important; }
+    .sub-tabs-container [data-baseweb="tab"] { background-color: #0c0d10 !important; border: 1px solid transparent !important; color: #94a3b8 !important; height: 40px !important; padding: 6px 16px !important; margin-top: 0px !important; }
+    .sub-tabs-container [aria-selected="true"] { color: #00ffa3 !important; border-bottom: 2px solid #00ffa3 !important; border-top: none !important; background-color: transparent !important; font-weight: bold !important; }
 
     .stCheckbox [data-testid="stCheckboxUserSelectBackdrop"] { background-color: #00ffa3 !important; }
     hr { border-color: #2d3139 !important; }
@@ -212,7 +201,7 @@ def parse_race(race_text):
     if "프" in race_text or "pr" in race_text or "토" in race_text: return "프로토스"
     return "미정"
 
-# 종족 배지 가독성 빌더 (노란 원 잔상 완벽 제거 완료)
+# 종족 배지 가독성 빌더
 def get_race_badge_html(race_text):
     norm_race = parse_race(race_text)
     icon_url = RACE_ICONS.get(norm_race)
@@ -260,12 +249,12 @@ with st.sidebar:
 
 # 🗂️ 3단 탭 구조 정의
 if not broadcast_mode:
-    tab_main, tab_draft, tab_admin = st.tabs(["🏆 메인 대시보드", "🤝 팀 가르기", "⚙️ 데이터 관리"])
+    tab_main, tab_draft, tab_admin = st.tabs(["🏆 방송 송출 오버레이", "📝 실시간 대진 지명", "⚙️ 데이터 관리"])
 else:
     tab_main = st.container()
 
 # =========================================================
-# 🏆 [1번 탭] 메인 경기 대시보드 화면
+# 🏆 [1번 탭] 방송 송출 오버레이 (시각화 전용 탭 🌟)
 # =========================================================
 with tab_main:
     st.markdown('<div class="main-title-container">', unsafe_allow_html=True)
@@ -275,231 +264,138 @@ with tab_main:
     else:
         st.markdown(f"<h1 class='main-title'>{st.session_state.title_text}</h1>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-        
-    st.markdown("<hr style='margin-top: 5px; margin-bottom: 15px;'>", unsafe_allow_html=True)
+    st.markdown("<hr style='margin-top: 5px; margin-bottom: 25px;'>", unsafe_allow_html=True)
 
-    main_col1, main_col2, main_col3 = st.columns([2, 6, 2])
-
-    # 👈 좌측 팀 명단
-    with main_col1:
-        left_team_data = st.session_state.teams["Left_Team"]
-        st.markdown(f"<h2 style='color: #00ffa3 !important; text-align: center; font-weight: bold;'>{left_team_data['name']}</h2>", unsafe_allow_html=True)
-        st.write("")
-        
-        for p_name in list(left_team_data["players"]):
-            p_row = df_players[df_players['name'] == p_name] if not df_players.empty else pd.DataFrame()
-            race = p_row.iloc[0]['race'] if not p_row.empty else "미정"
-            img = p_row.iloc[0]['img_url'] if not p_row.empty else ""
-            
-            with st.container():
-                st.markdown(f"<div class='player-card'>", unsafe_allow_html=True)
-                p_cols = st.columns([1.1, 2.3, 0.6] if not broadcast_mode else [1.1, 2.9])
-                with p_cols[0]:
-                    st.markdown("<div class='player-list-img'>", unsafe_allow_html=True)
-                    st.image(img if img else "https://via.placeholder.com/60/181a20/e2e8f0?text=User")
-                    st.markdown("</div>", unsafe_allow_html=True)
-                with p_cols[1]:
-                    st.markdown(f"<p style='margin-bottom:1px; font-size:1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
-                    st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
-                    if not df_players.empty and not p_row.empty:
-                        extra_info_list = []
-                        for col in df_players.columns:
-                            if col not in ['name', 'race', 'img_url']:
-                                val = p_row.iloc[0][col]
-                                if val: extra_info_list.append(f"{col}: {val}")
-                        if extra_info_list: st.markdown(f"<div class='extra-info'>{' | '.join(extra_info_list)}</div>", unsafe_allow_html=True)
-                            
-                if not broadcast_mode:
-                    with p_cols[2]:
-                        if st.button("X", key=f"del_L_{p_name}"):
-                            left_team_data["players"].remove(p_name)
-                            save_tournament_status()
-                            st.rerun()
-                st.markdown("</div>", unsafe_allow_html=True)
-
-    # 👉 우측 팀 명단
-    with main_col3:
-        right_team_data = st.session_state.teams["Right_Team"]
-        st.markdown(f"<h2 style='color: #00ffa3 !important; text-align: center; font-weight: bold;'>{right_team_data['name']}</h2>", unsafe_allow_html=True)
-        st.write("")
-        
-        for p_name in list(right_team_data["players"]):
-            p_row = df_players[df_players['name'] == p_name] if not df_players.empty else pd.DataFrame()
-            race = p_row.iloc[0]['race'] if not p_row.empty else "미정"
-            img = p_row.iloc[0]['img_url'] if not p_row.empty else ""
-            
-            with st.container():
-                st.markdown(f"<div class='player-card'>", unsafe_allow_html=True)
-                p_cols = st.columns([1.1, 2.3, 0.6] if not broadcast_mode else [1.1, 2.9])
-                with p_cols[0]:
-                    st.markdown("<div class='player-list-img'>", unsafe_allow_html=True)
-                    st.image(img if img else "https://via.placeholder.com/60/181a20/e2e8f0?text=User")
-                    st.markdown("</div>", unsafe_allow_html=True)
-                with p_cols[1]:
-                    st.markdown(f"<p style='margin-bottom:1px; font-size:1rem; color:#ffffff !important;'><b>{p_name}</b></p>", unsafe_allow_html=True)
-                    st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
-                    if not df_players.empty and not p_row.empty:
-                        extra_info_list = []
-                        for col in df_players.columns:
-                            if col not in ['name', 'race', 'img_url']:
-                                val = p_row.iloc[0][col]
-                                if val: extra_info_list.append(f"{col}: {val}")
-                        if extra_info_list: st.markdown(f"<div class='extra-info'>{' | '.join(extra_info_list)}</div>", unsafe_allow_html=True)
-                            
-                    if not broadcast_mode:
-                        with p_cols[2]:
-                            if st.button("X", key=f"del_R_{p_name}"):
-                                right_team_data["players"].remove(p_name)
-                                save_tournament_status()
-                                st.rerun()
-                    st.markdown("</div>", unsafe_allow_html=True)
-
-    # ⚔️ 중앙 MATCH BOARD 구역
-    with main_col2:
-        if not broadcast_mode:
-            st.markdown("<h3 style='text-align: center; color:#00ffa3 !important; font-weight: bold; margin-bottom: 15px;'>📝 실시간 대진 지명</h3>", unsafe_allow_html=True)
-            ctrl_col1, ctrl_col2, ctrl_col3 = st.columns(3)
-            with ctrl_col1: p1 = st.selectbox(f"{left_team_data['name']} 선택", options=left_team_data["players"], key="sb_p1")
-            with ctrl_col2: p2 = st.selectbox(f"{right_team_data['name']} 선택", options=right_team_data["players"], key="sb_p2")
-            with ctrl_col3:
-                map_pool = st.session_state.assigned_maps if st.session_state.assigned_maps else (st.session_state.active_maps if st.session_state.active_maps else (df_maps['map_name'].tolist() if not df_maps.empty else []))
-                selected_map = st.selectbox("경기 맵 선택", options=map_pool, key="sb_map")
+    # 1. 상단: 양 팀 명단 및 프로필 동그라미 사진 가로 정렬 배치구역
+    team_left, team_right = st.columns(2)
+    
+    with team_left:
+        st.markdown(f"<div class='broadcast-team-box'><h3 style='color:#00ffa3; font-weight:bold; margin-bottom:15px; text-align:center;'>🟢 {st.session_state.teams['Left_Team']['name']}</h3>", unsafe_allow_html=True)
+        players = st.session_state.teams['Left_Team']['players']
+        if players:
+            p_cols = st.columns(len(players))
+            for i, p_name in enumerate(players):
+                p_row = df_players[df_players['name'] == p_name] if not df_players.empty else pd.DataFrame()
+                race = p_row.iloc[0]['race'] if not p_row.empty else "미정"
+                img = p_row.iloc[0]['img_url'] if not p_row.empty else ""
                 
-            if st.button("⚔️ 매치 확정 및 대진표 추가", use_container_width=True):
-                if p1 and p2 and selected_map:
-                    st.session_state.matches.append({"p1": p1, "p2": p2, "map": selected_map})
-                    save_tournament_status()
-                    st.rerun()
-            st.markdown("<br><hr><br>", unsafe_allow_html=True)
-
-        st.markdown("<h2 style='text-align: center; letter-spacing: 4px; color: #ffffff !important; font-weight: bold;'>MATCH BOARD</h2>", unsafe_allow_html=True)
-        st.write("")
-        
-        for idx, match in enumerate(list(st.session_state.matches)):
-            p1_row = df_players[df_players['name'] == match["p1"]] if not df_players.empty else pd.DataFrame()
-            p2_row = df_players[df_players['name'] == match["p2"]] if not df_players.empty else pd.DataFrame()
-            map_row = df_maps[df_maps['map_name'] == match["map"]] if not df_maps.empty else pd.DataFrame()
-            
-            st.markdown(f"""<div class='match-board-card'>""", unsafe_allow_html=True)
-            head_col1, head_col2 = st.columns([9, 1])
-            with head_col1: st.markdown(f"<p style='font-weight: bold; color: #00ffa3 !important; font-size: 1.2rem; margin: 0;'>SET {idx+1}</p>", unsafe_allow_html=True)
-            with head_col2:
-                if not broadcast_mode:
-                    if st.button("X", key=f"del_match_{idx}"):
-                        st.session_state.matches.remove(match)
-                        save_tournament_status()
-                        st.rerun()
-            
-            m_col1, m_col2, m_col3 = st.columns([3, 4, 3])
-            with m_col1:
-                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:10px;'>{match['p1']}</h3>", unsafe_allow_html=True)
-                img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty else ""
-                st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
-                st.image(img1 if img1 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
-                st.markdown("</div>", unsafe_allow_html=True)
-            with m_col2:
-                st.markdown("<h2 style='text-align: center; margin-top: 5px; color: #00ffa3 !important; font-weight: bold; margin-bottom: 12px;'>VS</h2>", unsafe_allow_html=True)
-                if not map_row.empty and map_row.iloc[0]['map_url']:
-                    st.markdown("<div class='match-map-img'>", unsafe_allow_html=True)
-                    st.image(map_row.iloc[0]['map_url'])
+                with p_cols[i]:
+                    st.markdown(f"<div class='broadcast-player-card'>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='broadcast-avatar-img'>", unsafe_allow_html=True)
+                    st.image(img if img else "https://via.placeholder.com/85/181a20/e2e8f0?text=User")
+                    st.markdown(f"</div>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='margin:0; font-size:0.95rem; font-weight:bold; color:#fff;'>{p_name}</p>", unsafe_allow_html=True)
+                    st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
                     st.markdown("</div>", unsafe_allow_html=True)
-            with m_col3:
-                st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:10px;'>{match['p2']}</h3>", unsafe_allow_html=True)
-                img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty else ""
-                st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
-                st.image(img2 if img2 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
-                st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.caption("<p style='text-align:center; color:#64748b;'>배정된 선수가 없습니다.</p>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    with team_right:
+        st.markdown(f"<div class='broadcast-team-box'><h3 style='color:#00ffa3; font-weight:bold; margin-bottom:15px; text-align:center;'>🔴 {st.session_state.teams['Right_Team']['name']}</h3>", unsafe_allow_html=True)
+        players = st.session_state.teams['Right_Team']['players']
+        if players:
+            p_cols = st.columns(len(players))
+            for i, p_name in enumerate(players):
+                p_row = df_players[df_players['name'] == p_name] if not df_players.empty else pd.DataFrame()
+                race = p_row.iloc[0]['race'] if not p_row.empty else "미정"
+                img = p_row.iloc[0]['img_url'] if not p_row.empty else ""
                 
-            st.markdown(f"<p style='text-align: center; font-size: 1rem; font-weight: bold; color: #00ffa3 !important; margin-top: 15px; margin-bottom: 0px;'>Map: {match['map']}</p>", unsafe_allow_html=True)
+                with p_cols[i]:
+                    st.markdown(f"<div class='broadcast-player-card'>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='broadcast-avatar-img'>", unsafe_allow_html=True)
+                    st.image(img if img else "https://via.placeholder.com/85/181a20/e2e8f0?text=User")
+                    st.markdown(f"</div>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='margin:0; font-size:0.95rem; font-weight:bold; color:#fff;'>{p_name}</p>", unsafe_allow_html=True)
+                    st.markdown(get_race_badge_html(race), unsafe_allow_html=True)
+                    st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.caption("<p style='text-align:center; color:#64748b;'>배정된 선수가 없습니다.</p>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("<br><h2 style='text-align: center; letter-spacing: 6px; font-weight: 900; color: #ffffff !important;'>MATCH BOARD</h2>", unsafe_allow_html=True)
+    st.write("")
+    
+    # 2. 하단: 고화질 및 일직선 크롭 정렬이 완벽하게 동기화된 전광판 대진표 리스트
+    for idx, match in enumerate(list(st.session_state.matches)):
+        p1_row = df_players[df_players['name'] == match["p1"]] if not df_players.empty else pd.DataFrame()
+        p2_row = df_players[df_players['name'] == match["p2"]] if not df_players.empty else pd.DataFrame()
+        map_row = df_maps[df_maps['map_name'] == match["map"]] if not df_maps.empty else pd.DataFrame()
+        
+        st.markdown(f"""<div class='match-board-card'>""", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-weight: bold; color: #00ffa3 !important; font-size: 1.3rem; margin: 0 0 10px 0;'>SET {idx+1}</p>", unsafe_allow_html=True)
+        
+        m_col1, m_col2, m_col3 = st.columns([3, 4, 3])
+        with m_col1:
+            st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:12px;'>{match['p1']}</h3>", unsafe_allow_html=True)
+            img1 = p1_row.iloc[0]['img_url'] if not p1_row.empty else ""
+            st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
+            st.image(img1 if img1 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
             st.markdown("</div>", unsafe_allow_html=True)
+        with m_col2:
+            st.markdown("<h2 style='text-align: center; margin-top: 30px; color: #00ffa3 !important; font-weight: bold; margin-bottom: 30px;'>VS</h2>", unsafe_allow_html=True)
+            if not map_row.empty and map_row.iloc[0]['map_url']:
+                st.markdown("<div class='match-map-img'>", unsafe_allow_html=True)
+                st.image(map_row.iloc[0]['map_url'])
+                st.markdown("</div>", unsafe_allow_html=True)
+        with m_col3:
+            st.markdown(f"<h3 style='text-align: center; color: #ffffff !important; margin-bottom:12px;'>{match['p2']}</h3>", unsafe_allow_html=True)
+            img2 = p2_row.iloc[0]['img_url'] if not p2_row.empty else ""
+            st.markdown("<div class='match-player-img'>", unsafe_allow_html=True)
+            st.image(img2 if img2 else "https://via.placeholder.com/120/181a20/e2e8f0?text=User")
+            st.markdown("</div>", unsafe_allow_html=True)
+            
+        st.markdown(f"<p style='text-align: center; font-size: 1.1rem; font-weight: bold; color: #00ffa3 !important; margin-top: 15px; margin-bottom: 0px;'>Map: {match['map']}</p>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
-# 🤝 [2번 탭] 실시간 팀 가르기
+# 📝 [2번 탭] 실시간 대진 지명 및 대진 현황 (텍스트 최적화 룸 🌟)
 # =========================================================
 if not broadcast_mode:
     with tab_draft:
         st.markdown("<div class='draft-panel'>", unsafe_allow_html=True)
-        st.markdown("<h2 style='text-align: center; color: #00ffa3 !important; font-weight: bold;'>🤝 대회 출전 엔트리 팀 & 맵 지명 드래프트 룸</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: #00ffa3 !important; font-weight: bold;'>📝 실시간 대진표 지명 및 조작 컨트롤 보드</h2>", unsafe_allow_html=True)
         st.write("")
         
-        draft_col1, draft_col2 = st.columns([5, 5])
-        with draft_col1:
-            st.markdown("#### 1️⃣ 선수 팀 지명 배정")
-            if st.session_state.today_entry:
-                unassigned_players = [p for p in st.session_state.today_entry if p not in st.session_state.teams["Left_Team"]["players"] and p not in st.session_state.teams["Right_Team"]["players"]]
-                if unassigned_players:
-                    p_col1, p_col2, p_col3 = st.columns([2, 2, 1])
-                    with p_col1: draft_p = st.selectbox("팀 분배할 선수 선택", options=unassigned_players, key="draft_sel_p")
-                    with p_col2:
-                        team_names_mapping = {st.session_state.teams["Left_Team"]["name"]: "Left_Team", st.session_state.teams["Right_Team"]["name"]: "Right_Team"}
-                        selected_team_name = st.selectbox("지명 소속팀 선택", options=list(team_names_mapping.keys()), key="draft_sel_t")
-                        draft_t = team_names_mapping[selected_team_name]
-                    with p_col3:
-                        st.markdown("<div style='margin-top:28px;'></div>", unsafe_allow_html=True)
-                        if st.button("🤝 팀 확정", use_container_width=True):
-                            st.session_state.teams[draft_t]["players"].append(draft_p)
-                            save_tournament_status()
-                            st.rerun()
-                else: st.success("🎉 모든 출전 선수의 팀 분배가 완료되었습니다.")
-            else: st.warning("⚠️ '⚙️ 데이터 관리' 탭에서 당일 출전 선수를 선택해야 드래프트 보드에 연동됩니다.")
-                
-            st.markdown("<hr>", unsafe_allow_html=True)
-            st.markdown("#### 2️⃣ 세트별 경기 사용 맵 추가")
+        # 상단: 대진 추가 드롭다운 기기
+        ctrl_col1, ctrl_col2, ctrl_col3 = st.columns(3)
+        left_team_name = st.session_state.teams["Left_Team"]["name"]
+        right_team_name = st.session_state.teams["Right_Team"]["name"]
+        
+        with ctrl_col1:
+            p1 = st.selectbox(f"🟢 {left_team_name} 출전 선수 지명", options=st.session_state.teams["Left_Team"]["players"], key="admin_sb_p1")
+        with ctrl_col2:
+            p2 = st.selectbox(f"🔴 {right_team_name} 출전 선수 지명", options=st.session_state.teams["Right_Team"]["players"], key="admin_sb_p2")
+        with ctrl_col3:
+            map_pool = st.session_state.assigned_maps if st.session_state.assigned_maps else (st.session_state.active_maps if st.session_state.active_maps else (df_maps['map_name'].tolist() if not df_maps.empty else []))
+            selected_map = st.selectbox("전장 맵 선택", options=map_pool, key="admin_sb_map")
             
-            active_map_pool = st.session_state.active_maps if st.session_state.active_maps else (df_maps['map_name'].tolist() if not df_maps.empty else [])
-            if active_map_pool:
-                m_col1, m_col2 = st.columns([3, 1])
-                with m_col1: draft_map_choice = st.selectbox("대회에 사용할 공식 맵 선택", options=active_map_pool, key="draft_sel_m")
-                with m_col2:
-                    st.markdown("<div style='margin-top:28px;'></div>", unsafe_allow_html=True)
-                    if st.button("🗺️ 맵 지정", use_container_width=True):
-                        st.session_state.assigned_maps.append(draft_map_choice)
-                        save_tournament_status()
-                        st.rerun()
-            else:
-                st.warning("활성화된 맵이 없습니다. '데이터 관리' 탭에서 사용할 맵을 체크해 주세요.")
-
-        with draft_col2:
-            st.markdown("#### 📊 실시간 드래프트 현황")
-            st.markdown(f"**🟢 {st.session_state.teams['Left_Team']['name']} 스쿼드:**")
-            if st.session_state.teams["Left_Team"]["players"]:
-                for p in list(st.session_state.teams["Left_Team"]["players"]):
-                    st.markdown(f"<div class='del-btn' style='display:inline-block; margin-right:10px; margin-bottom:5px;'>", unsafe_allow_html=True)
-                    m_c1, m_c2 = st.columns([4, 1])
-                    m_c1.markdown(f"👤 {p}")
-                    if m_c2.button("X", key=f"rev_L_{p}"):
-                        st.session_state.teams["Left_Team"]["players"].remove(p)
-                        save_tournament_status()
-                        st.rerun()
-                    st.markdown("</div>", unsafe_allow_html=True)
-            else: st.caption("지명된 선수가 없습니다.")
+        if st.button("⚔️ 확정 대진표에 추가", use_container_width=True):
+            if p1 and p2 and selected_map:
+                st.session_state.matches.append({"p1": p1, "p2": p2, "map": selected_map})
+                save_tournament_status()
+                st.rerun()
                 
-            st.markdown(f"**🔴 {st.session_state.teams['Right_Team']['name']} 스쿼드:**")
-            if st.session_state.teams["Right_Team"]["players"]:
-                for p in list(st.session_state.teams["Right_Team"]["players"]):
-                    st.markdown(f"<div class='del-btn' style='display:inline-block; margin-right:10px; margin-bottom:5px;'>", unsafe_allow_html=True)
-                    m_c1, m_c2 = st.columns([4, 1])
-                    m_c1.markdown(f"👤 {p}")
-                    if m_c2.button("X", key=f"rev_R_{p}"):
-                        st.session_state.teams["Right_Team"]["players"].remove(p)
+        st.markdown("<br><hr style='border-style: dashed;'><br>", unsafe_allow_html=True)
+        st.markdown("### 📊 현재 구성된 실시간 대진표 리스트 (글씨 최적화 모드)", unsafe_allow_html=True)
+        
+        # 하단: 원하셨던 글씨 위주의 가볍고 직관적인 대진표 현황 관리 리스트
+        if st.session_state.matches:
+            for idx, match in enumerate(list(st.session_state.matches)):
+                st.markdown(f"<div class='admin-match-text-row'>", unsafe_allow_html=True)
+                txt_c1, txt_c2 = st.columns([8.5, 1.5])
+                with txt_c1:
+                    st.markdown(f"<p style='margin:0; font-size:1.1rem; line-height:1.8;'><b style='color:#00ffa3;'>[SET {idx+1}]</b> &nbsp;&nbsp; 🟢 {match['p1']} &nbsp;&nbsp; <b style='color:#64748b;'>VS</b> &nbsp;&nbsp; 🔴 {match['map_url' if False else 'p2']} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#94a3b8; font-size:0.95rem;'>전장 맵: {match['map']}</span></p>", unsafe_allow_html=True)
+                with txt_c2:
+                    st.markdown("<div class='del-btn'>", unsafe_allow_html=True)
+                    if st.button("X 취소", key=f"admin_del_match_{idx}", use_container_width=True):
+                        st.session_state.matches.remove(match)
                         save_tournament_status()
                         st.rerun()
                     st.markdown("</div>", unsafe_allow_html=True)
-            else: st.caption("지명된 선수가 없습니다.")
-                
-            st.markdown("<hr style='border-style:dashed;'>", unsafe_allow_html=True)
-            st.markdown("**🗺️ 지정된 세트별 맵 순서:**")
-            if st.session_state.assigned_maps:
-                for idx, m_name in enumerate(list(st.session_state.assigned_maps)):
-                    st.markdown(f"<div class='del-btn'>", unsafe_allow_html=True)
-                    m_c1, m_c2 = st.columns([4, 1])
-                    m_c1.markdown(f"**SET {idx+1}**: {m_name}")
-                    if m_c2.button("X", key=f"rev_M_{idx}_{m_name}"):
-                        st.session_state.assigned_maps.pop(idx)
-                        save_tournament_status()
-                        st.rerun()
-                    st.markdown("</div>", unsafe_allow_html=True)
-            else: st.caption("지정된 맵이 없습니다.")
+                st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.caption("현재 성사된 대진표가 없습니다. 위의 지명 시스템으로 세트별 대진을 추가해 주세요.")
         st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
@@ -507,7 +403,6 @@ if not broadcast_mode:
 # =========================================================
 if not broadcast_mode:
     with tab_admin:
-        # 🛠️ [NEW] 데이터 관리 탭 상단에 일괄 초기화 버튼 배치 파트
         st.markdown("### ⚙️ 백오피스 대회 데이터 및 테마 관리 시스템")
         
         with st.container(border=True):
@@ -515,7 +410,7 @@ if not broadcast_mode:
             st.markdown("<p style='font-size:0.8rem; color:#94a3b8; margin-bottom:12px;'>현재까지 편성된 대진표, 가르기 완료된 팀 명단, 당일 엔트리 및 활성화된 맵 정보를 영구 삭제하고 첫 상태로 리셋합니다.</p>", unsafe_allow_html=True)
             if st.button("🚨 대회 모든 내용 실시간 초기화", key="admin_master_reset_btn"):
                 execute_master_reset()
-                st.success("대회 데이터 및 백업 가상 디스크가 완벽히 초기화되었습니다!")
+                st.success("대회 데이터가 완벽히 초기화되었습니다!")
                 time.sleep(1)
                 st.rerun()
                 
@@ -548,7 +443,6 @@ if not broadcast_mode:
                 if not df_maps.empty:
                     st.markdown("<small style='color:#94a3b8;'>마스터 DB 맵 리스트입니다. 오늘 중계에 활성화할 맵을 체크하세요.</small>", unsafe_allow_html=True)
                     updated_maps = []
-                    
                     map_names = df_maps['map_name'].tolist()
                     m_cols = st.columns(3)
                     for i, m_name in enumerate(map_names):
@@ -580,7 +474,6 @@ if not broadcast_mode:
                     t_terran, t_zerg, t_protoss, t_unknown = st.tabs(["🔵 테란", "🔴 저그", "🟡 프로토스", "⚪ 기타"])
                     st.markdown('</div>', unsafe_allow_html=True)
                     
-                    # 엔트리 체크박스 사전 바인딩 예외 처리 국소화
                     current_entry_list = st.session_state.today_entry
                     
                     with t_terran:
@@ -634,4 +527,6 @@ if not broadcast_mode:
                         st.rerun()
                 else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
 
+# =========================================================
+# 📜 [맨 하단] 저작권 표기 구역
 # =========================================================
