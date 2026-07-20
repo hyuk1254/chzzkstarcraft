@@ -77,11 +77,13 @@ else:
 if "title_img" not in st.session_state:
     st.session_state.title_img = None
 
-# 🎨 종족 마크 커스텀 세팅 구역
+# =========================================================
+# 🎨 [연동 완료] 제공해주신 오피셜 고화질 종족 마크 주소를 각인했습니다!
+# =========================================================
 RACE_ICONS = {
-    "테란": "https://via.placeholder.com/20/00ffa3/ffffff?text=T",  # 👈 여기에 자체 제작하신 테란 마크 주소 삽입
-    "저그": "https://via.placeholder.com/20/00ffa3/ffffff?text=Z",  # 👈 여기에 자체 제작하신 저그 마크 주소 삽입
-    "프로토스": "https://via.placeholder.com/20/00ffa3/ffffff?text=P", # 👈 여기에 자체 제작하신 프로토스 마크 주소 삽입
+    "테란": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793445269770421/qtPQWR_1fiy6ly6NbndO9Sp-CA73mBjJ52ZtZGwQj1Ozo9FlQOeTV5pjtS3UKrA-_4qCiNLGr3_rgpklZ1HSJCk-0kw5lxqO-VCVHEvGo6jDv60hOCVhzX4Kcun7dxbwK73isQF0cBHi3qjeHDct5w.webp?ex=6a5f9758&is=6a5e45d8&hm=e3199aaefab4395ddca0983c8738bee5bf7c491b6ff3c456a437ce3d9913ad5f&",
+    "저그": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793444846403715/vkWLywILixMzHkg83QumKeJR3YPhDMGdAZtjbJ2SBLPOQCHgpqcbXRCRyudHo-3nP5AYQEkKIJFncVwYoOjG4AHdeJ-dcwc1uwhiR90LsKIfDy6If7-s5EhI2xI59o0Vkchd9PNFAOFM_CQamYXFXQ.webp?ex=6a5f9758&is=6a5e45d8&hm=dd0ba630755f7d54b893c5e17412f56f4dcea5c06e69d6f970aaa4dfdacd4c3f&",
+    "프로토스": "https://cdn.discordapp.com/attachments/1528721011732643951/1528793444435099648/WrK9L73w0c_CY7HVAOuXzdRg4yS7OBrMXtBIs1qEGHnPZPTeH7N8t1Mzb8sIRkcSkLSi0v47wBiONdp35r10WIE-tmRf8d4EN2gUaMBVgOR0OYFJj_kPILzCIDBFwL6SMK05jX0r1pnJiNIp2t5PjQ.webp?ex=6a5f9758&is=6a5e45d8&hm=63492a3a94779f80643e3c3f5a1f546e5df60b4da678e33ae2b9e260b58b76c2&",
 }
 
 # --- 🎨 치지직 오피셜 컬러 및 이미지 크롭 커스텀 스타일 ---
@@ -144,7 +146,6 @@ st.markdown("""
     }
     .del-btn > div > button:hover { background-color: #ff5555 !important; color: #ffffff !important; box-shadow: 0 0 8px rgba(255, 85, 85, 0.4); }
 
-    /* 🛠️ 오직 '최상단 브라우저 대 메뉴 탭'만 마이너스 마진(-50px)을 먹도록 고정 */
     .stApp > div:nth-child(1) .stTabs {
         margin-top: -50px !important;
     }
@@ -160,9 +161,8 @@ st.markdown("""
         background-color: #1c1e26 !important; color: #00ffa3 !important; font-weight: bold; border-top: 2px solid #00ffa3 !important; 
     }
     
-    /* 🛠️ [🚨 완벽 수정] 관리자 창 내부의 종족별 '서브 탭 그룹' 전용 격리 CSS 스타일 */
     .sub-tabs-container {
-        margin-top: 25px !important; /* 상단 텍스트 안내글과 탭 사이의 확실한 마진 간격 */
+        margin-top: 25px !important;
         padding-top: 10px !important;
         clear: both !important;
     }
@@ -178,7 +178,7 @@ st.markdown("""
         background-color: #0c0d10 !important; 
         border: 1px solid transparent !important; 
         color: #94a3b8 !important; 
-        height: 40px !important; /* 높이가 찌그러지지 않도록 완전 고정 */
+        height: 40px !important;
         padding: 6px 16px !important;
         margin-top: 0px !important;
     }
@@ -535,7 +535,6 @@ if not broadcast_mode:
             with st.container(border=True):
                 st.subheader("📅 당일 엔트리 선수 체크 확정 (종족별 분류)")
                 if not df_players.empty:
-                    # 🛠️ [CSS 격리 레이어 설치] 텍스트 설명문구 영역
                     st.markdown("<p style='font-size: 0.85rem; color:#94a3b8; margin-bottom: 5px;'>오늘 현장에 출전 등판한 선수들을 종족별로 필터링하여 체크하세요.</p>", unsafe_allow_html=True)
                     
                     players_by_race = {"테란": [], "저그": [], "프로토스": [], "미정": []}
@@ -544,7 +543,6 @@ if not broadcast_mode:
                         p_race = parse_race(row['race'])
                         players_by_race[p_race].append(p_name)
                     
-                    # 🛠️ [HTML/CSS 격리] 서브 탭 컨테이너 클래스를 변경하여 완벽한 상단 이격 거리 확보
                     st.markdown('<div class="sub-tabs-container">', unsafe_allow_html=True)
                     t_terran, t_zerg, t_protoss, t_unknown = st.tabs(["🔵 테란", "🔴 저그", "🟡 프로토스", "⚪ 기타"])
                     st.markdown('</div>', unsafe_allow_html=True)
@@ -587,3 +585,8 @@ if not broadcast_mode:
                         st.success(f"총 {len(st.session_state.today_entry)}명의 선수 엔트리 저장이 완료되었습니다!")
                         st.rerun()
                 else: st.warning("구글 시트에 선수를 먼저 등록해 주세요.")
+
+# =========================================================
+# 📜 [맨 하단] 저작권 표기 구역
+# =========================================================
+st.markdown("<p class='copyright-text'>해당 포멧의 저작권은 스진동에 있습니다.</p>", unsafe_allow_html=True)
